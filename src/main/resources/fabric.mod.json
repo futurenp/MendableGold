@@ -8,12 +8,11 @@
 		"Naterbobber"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/futurenp/MendableGold"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/mendablegold/icon.png",
-	"environment": "server",
+	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"com.naterbobber.MendableGold"

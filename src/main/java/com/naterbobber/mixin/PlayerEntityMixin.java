@@ -1,9 +1,10 @@
 package com.naterbobber.mixin;
 
-import com.naterbobber.MGComponents;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,10 +25,19 @@ public abstract class PlayerEntityMixin {
         EquipmentSlot[] equipmentSlotList = EquipmentSlot.values();
 
         for(EquipmentSlot equipment : equipmentSlotList) {
-            ItemStack item = player.getEquippedStack(equipment);
-            if (item == null) continue;
-            if (item.isDamaged() && item.contains(MGComponents.GOLD_MENDING)) {
-                eligibleItems.add(item);
+            ItemStack itemStack = player.getEquippedStack(equipment);
+            if (itemStack == null) continue;
+            Item item = itemStack.getItem();
+            if (itemStack.isDamaged() && (item == Items.GOLDEN_HELMET ||
+                    item == Items.GOLDEN_CHESTPLATE ||
+                    item == Items.GOLDEN_LEGGINGS ||
+                    item == Items.GOLDEN_BOOTS ||
+                    item == Items.GOLDEN_SWORD ||
+                    item == Items.GOLDEN_PICKAXE ||
+                    item == Items.GOLDEN_AXE ||
+                    item == Items.GOLDEN_SHOVEL ||
+                    item == Items.GOLDEN_HOE)) {
+                eligibleItems.add(itemStack);
             }
         }
 

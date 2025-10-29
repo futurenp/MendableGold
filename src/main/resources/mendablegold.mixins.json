@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "EnchantmentMixin",
-    "ItemMixin",
     "PlayerEntityMixin",
     "ToolMaterialAccessor",
     "ToolMaterialMixin"
