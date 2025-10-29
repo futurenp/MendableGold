@@ -12,7 +12,7 @@ public class MendableGold implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		MGComponents.initialize();
 
 		LOGGER.info("Hello Fabric world!");
 	}

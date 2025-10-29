@@ -1,8 +1,6 @@
 package com.naterbobber.mixin;
 
-import com.naterbobber.init.MGComponents;
-import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.Enchantment;
+import com.naterbobber.MGComponents;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

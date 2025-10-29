@@ -1,17 +1,18 @@
 {
-	"required": true,
-	"package": "com.naterbobber.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ItemMixin",
-		"PlayerEntityMixin",
-		"ToolMaterialAccessor",
-		"ToolMaterialMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "com.naterbobber.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EnchantmentMixin",
+    "ItemMixin",
+    "PlayerEntityMixin",
+    "ToolMaterialAccessor",
+    "ToolMaterialMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }

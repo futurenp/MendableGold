@@ -1,6 +1,6 @@
 package com.naterbobber.mixin;
 
-import com.naterbobber.init.MGComponents;
+import com.naterbobber.MGComponents;
 import net.minecraft.component.ComponentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
