@@ -1,4 +1,4 @@
-package com.example;
+package com.naterbobber;
 
 import net.fabricmc.api.ClientModInitializer;
 

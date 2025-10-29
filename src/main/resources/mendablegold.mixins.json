@@ -1,9 +1,12 @@
 {
 	"required": true,
-	"package": "com.example.mixin",
+	"package": "com.naterbobber.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"ItemMixin",
+		"PlayerEntityMixin",
+		"ToolMaterialAccessor",
+		"ToolMaterialMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
