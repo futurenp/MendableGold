@@ -20,13 +20,10 @@ public class EnchantmentMixin {
 
     @Inject(method = "isAcceptableItem", at = @At("HEAD"), cancellable = true)
     private void preventMendingOnGoldItems(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-
-        if(!this.effects.contains(EnchantmentEffectComponentTypes.REPAIR_WITH_XP)) {
-            return;
-        }
-
-        if(MGGoldSet.goldItemSet.contains(stack.getItem())){
-            cir.setReturnValue(false);
+        if(this.effects.contains(EnchantmentEffectComponentTypes.REPAIR_WITH_XP)) {
+            if(MGGoldSet.goldItemSet.contains(stack.getItem())){
+                cir.setReturnValue(false);
+            }
         }
     }
 }
