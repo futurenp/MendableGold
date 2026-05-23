@@ -1,16 +1,15 @@
 package com.naterbobber.data;
 
 import com.naterbobber.MendableGold;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.util.Identifier;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -27,14 +26,14 @@ public class MGDataGenerator implements DataGeneratorEntrypoint {
         return MendableGold.MOD_ID;
     }
 
-    public static class MGItemTagProvider extends FabricTagProvider.ItemTagProvider {
+    public static class MGItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
-        public MGItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-            super(output, registriesFuture);
+        public MGItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+            super(output, registryLookupFuture);
         }
 
         @Override
-        protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        protected void addTags(HolderLookup.Provider provider) {
             tagVanillaItems(MGTags.MENDABLE,
                     Items.GOLDEN_HELMET,
                     Items.GOLDEN_CHESTPLATE,
@@ -50,7 +49,7 @@ public class MGDataGenerator implements DataGeneratorEntrypoint {
 
         private void tagVanillaItems(TagKey<Item> tag, Item... items) {
             for(var item : items) {
-                getTagBuilder(tag).add(Identifier.of(item.toString()));
+                getOrCreateRawBuilder(tag).addElement(Identifier.parse(item.toString()));
             }
         }
     }

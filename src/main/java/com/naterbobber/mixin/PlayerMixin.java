@@ -1,10 +1,9 @@
 package com.naterbobber.mixin;
 
 import com.naterbobber.data.MGTags;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -13,22 +12,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin {
+@Mixin(Player.class)
+public abstract class PlayerMixin {
 
-    @ModifyVariable(method = "addExperience", at = @At("HEAD"), argsOnly = true)
+    @ModifyVariable(method = "giveExperiencePoints", at = @At("HEAD"), argsOnly = true)
     private int mendableGold$modifyExperience(int experience) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
+        Player player = (Player) (Object) this;
 
         List<ItemStack> eligibleItems = new ArrayList<>();
         EquipmentSlot[] equipmentSlotList = EquipmentSlot.values();
 
         for(EquipmentSlot equipment : equipmentSlotList) {
-            ItemStack itemStack = player.getEquippedStack(equipment);
+            ItemStack itemStack = player.getItemBySlot(equipment);
             if (itemStack == null) continue;
-            Item item = itemStack.getItem();
 
-            if (itemStack.isIn(MGTags.MENDABLE) && itemStack.isDamaged()){
+            if (itemStack.is(MGTags.MENDABLE) && itemStack.isDamaged()){
                 eligibleItems.add(itemStack);
             }
         }
@@ -41,7 +39,7 @@ public abstract class PlayerEntityMixin {
         ItemStack itemToRepair = eligibleItems.getFirst();
 
         float repairMultiplier = 2F;
-        int currentDamage = itemToRepair.getDamage();
+        int currentDamage = itemToRepair.getDamageValue();
         int repairAmount = (int) (experience * repairMultiplier);
         int repairedDamage = Math.min(repairAmount, currentDamage);
 
@@ -51,7 +49,7 @@ public abstract class PlayerEntityMixin {
             experience = 0;
         }
 
-        itemToRepair.setDamage(currentDamage - repairedDamage);
+        itemToRepair.setDamageValue(currentDamage - repairedDamage);
 
         return experience;
     }
