@@ -1,7 +1,7 @@
 package com.naterbobber.mixin;
 
 
-import com.naterbobber.MGGoldSet;
+import com.naterbobber.data.MGTags;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.enchantment.Enchantment;
@@ -21,7 +21,7 @@ public class EnchantmentMixin {
     @Inject(method = "isAcceptableItem", at = @At("HEAD"), cancellable = true)
     private void preventMendingOnGoldItems(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if(this.effects.contains(EnchantmentEffectComponentTypes.REPAIR_WITH_XP)) {
-            if(MGGoldSet.goldItemSet.contains(stack.getItem())){
+            if(stack.isIn(MGTags.MENDABLE)){
                 cir.setReturnValue(false);
             }
         }

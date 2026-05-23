@@ -1,7 +1,6 @@
 package com.naterbobber.mixin;
 
-import com.naterbobber.MGGoldSet;
-import com.naterbobber.MendableGold;
+import com.naterbobber.data.MGTags;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -29,7 +28,7 @@ public abstract class PlayerEntityMixin {
             if (itemStack == null) continue;
             Item item = itemStack.getItem();
 
-            if (MGGoldSet.goldItemSet.contains(item) && itemStack.isDamaged()){
+            if (itemStack.isIn(MGTags.MENDABLE) && itemStack.isDamaged()){
                 eligibleItems.add(itemStack);
             }
         }
@@ -41,7 +40,7 @@ public abstract class PlayerEntityMixin {
         Collections.shuffle(eligibleItems);
         ItemStack itemToRepair = eligibleItems.getFirst();
 
-        float repairMultiplier = MendableGold.CONFIG.repairMultiplier();
+        float repairMultiplier = 2F;
         int currentDamage = itemToRepair.getDamage();
         int repairAmount = (int) (experience * repairMultiplier);
         int repairedDamage = Math.min(repairAmount, currentDamage);
