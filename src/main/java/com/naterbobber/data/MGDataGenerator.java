@@ -43,7 +43,8 @@ public class MGDataGenerator implements DataGeneratorEntrypoint {
                     Items.GOLDEN_PICKAXE,
                     Items.GOLDEN_AXE,
                     Items.GOLDEN_HOE,
-                    Items.GOLDEN_SHOVEL
+                    Items.GOLDEN_SHOVEL,
+                    Items.GOLDEN_SPEAR
             );
         }
 
